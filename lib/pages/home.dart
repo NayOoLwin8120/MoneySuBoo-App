@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mytest/pages/addmoney.dart';
 
@@ -9,6 +11,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  List<Data> _data = List.generate(10, (index) {
+    return Data(
+        time: "Time $index", name: "Sayin $index", value: "Money $index");
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +77,11 @@ class _HomepageState extends State<Homepage> {
       body: Column(children: [
         //---------------Start  Date Section -------------------
         Container(
-          color: Colors.teal,
+          // color: Colors.teal,
           margin: const EdgeInsets.only(top: 3, bottom: 3),
           padding: const EdgeInsets.all(10),
+          height: 63,
+          // constraints: BoxConstraints(maxHeight: 90),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -83,7 +91,7 @@ class _HomepageState extends State<Homepage> {
                     height: 50,
                     // color: Colors.red,
                     decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 235, 110, 101),
                         // border:Border.all(color:Colors.black),
                         // borderRadius: BorderRadius.circular(50)
 
@@ -107,8 +115,8 @@ class _HomepageState extends State<Homepage> {
                         // borderRadius: BorderRadius.circular(50)
                         gradient: LinearGradient(
                           colors: [
-                            Colors.red,
-                            Colors.green,
+                            Colors.white,
+                            Color.fromARGB(255, 202, 210, 202),
                           ],
                           begin: Alignment.topLeft,
                         ),
@@ -227,27 +235,61 @@ class _HomepageState extends State<Homepage> {
 
         //---------------Start  Balance Section ----------------
         Container(
-          color: Colors.teal,
+          color: Color.fromARGB(255, 219, 235, 233),
           margin: const EdgeInsets.only(bottom: 2),
           padding: const EdgeInsets.all(10),
+          constraints: BoxConstraints(maxHeight: 70),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Container(
-              width: 150,
-              margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: const Center(
-                child: (Text("Balance :",
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              // width: 150,
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+              // color: Colors.red,
+              child: Column(
+                children: const [
+                  Text("Income",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      )),
+                  Text("2000",
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
               ),
             ),
             // ignore: sized_box_for_whitespace
             Container(
-              width: 150,
+              // width: 150,
               // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
 
-              child: const Center(
-                child: (Text("2000 ks",
-                    style: TextStyle(color: Colors.black, fontSize: 20))),
+              child: Column(
+                children: const [
+                  Text("Outcome",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 5, 240, 21),
+                        fontSize: 20,
+                      )),
+                  Text("2000",
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
+              ),
+            ),
+            Container(
+              // width: 150,
+              // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+
+              child: Column(
+                children: const [
+                  Text("Total",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 20,
+                      )),
+                  Text("20000",
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
               ),
             ),
           ]),
@@ -256,14 +298,14 @@ class _HomepageState extends State<Homepage> {
 
         //--------------- Start Income and Outcome Section ------
         Container(
-          color: Colors.teal,
+          color: Color.fromARGB(255, 219, 235, 233),
           margin: const EdgeInsets.only(bottom: 2),
           padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 100,
+                width: 150,
                 height: 50,
                 padding: const EdgeInsets.only(
                     top: 1, right: 3, bottom: 5, left: 10),
@@ -277,12 +319,14 @@ class _HomepageState extends State<Homepage> {
                 child: Row(
                   children: [
                     Center(
-                      child: (TextButton(
+                      child: (TextButton.icon(
+                        icon: const Icon(Icons.add),
                         style: const ButtonStyle(),
                         onPressed: () {
-                          debugPrint("Hello");
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const Addmoney()));
                         },
-                        child: const Text(
+                        label: const Text(
                           'Income',
                           style: TextStyle(fontSize: 20, color: Colors.black),
                         ),
@@ -292,7 +336,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               Container(
-                width: 120,
+                width: 150,
                 height: 50,
                 padding: const EdgeInsets.only(
                     top: 1, right: 2, bottom: 5, left: 10),
@@ -304,14 +348,19 @@ class _HomepageState extends State<Homepage> {
                 child: Row(
                   children: [
                     Center(
-                      child: (TextButton(
-                        style: const ButtonStyle(),
+                      child: (TextButton.icon(
+                        // style: const(),
                         onPressed: () {
-                          debugPrint("Hello");
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const Addmoney()));
                         },
-                        child: const Text(
+                        label: const Text(
                           'Outcome',
                           style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        icon: const Icon(
+                          Icons.add,
+                          size: 30,
                         ),
                       )),
                     ),
@@ -325,85 +374,21 @@ class _HomepageState extends State<Homepage> {
         // const SizedBox(height: 20.0),
         //------------ Start Task list Section -------------------
         Container(
-          color: Colors.teal,
+          color: Color.fromARGB(255, 5, 227, 201),
           height: 344,
           padding: const EdgeInsets.all(10),
-          // child: Column(
-          //   children: [
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: [
-          //         Container(
-          //             width: 120,
-          //             height: 80,
-          //             color: Colors.red,
-          //             // margin:EdgeInsets.fromLTRB(10, 10, 10, 10),
-          //             child: const Center(
-          //               child: (Text("Task",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //         Container(
-          //             width: 120,
-          //             height: 80,
-          //             color: Colors.red,
-          //             child: const Center(
-          //               child: (Text("Money",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //       ],
-          //     ),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: [
-          //         Container(
-          //             width: 120,
-          //             height: 80,
-          //             color: Colors.red,
-          //             // margin:EdgeInsets.fromLTRB(10, 10, 10, 10),
-          //             child: const Center(
-          //               child: (Text("Clothing",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //         Container(
-          //             width: 120,
-          //             height: 80,
-          //             color: Colors.red,
-          //             child: const Center(
-          //               child: (Text("15000 Ks",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //       ],
-          //     ),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       children: [
-          //         Container(
-          //             width: 120,
-          //             height: 60,
-          //             color: Colors.red,
-          //             // margin:EdgeInsets.fromLTRB(10, 10, 10, 10),
-          //             child: const Center(
-          //               child: (Text("Tea",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //         Container(
-          //             width: 120,
-          //             height: 64,
-          //             color: Colors.red,
-          //             child: const Center(
-          //               child: (Text("2000",
-          //                   style: TextStyle(
-          //                       color: Colors.black, fontSize: 20))),
-          //             )),
-          //       ],
-          //     ),
-          //   ],
-          // ),
+          child: ListView.builder(
+            itemCount: _data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                isThreeLine: true,
+                leading: Icon(Icons.attach_money_rounded),
+                title: Text(_data[index].time!),
+                subtitle: Text(_data[index].name!),
+                trailing: Text(_data[index].value!),
+              );
+            },
+          ),
         ),
       ]),
 
@@ -417,6 +402,9 @@ class _HomepageState extends State<Homepage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.article_outlined),
             label: 'All List',
+            // activeIcon: IconButton(
+            //   onPressed: () {},
+            // ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
@@ -462,4 +450,11 @@ class _HomepageState extends State<Homepage> {
       // ------------ End for Sidebar --------
     );
   }
+}
+
+class Data {
+  final String? time;
+  final String? name;
+  final String? value;
+  Data({this.time, this.name, this.value});
 }
