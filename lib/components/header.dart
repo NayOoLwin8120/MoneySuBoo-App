@@ -2,9 +2,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:mytest/pages/addmoney.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HeaderHome extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(70);
+
   const HeaderHome({Key? key}) : super(key: key);
 
   @override
@@ -35,19 +37,6 @@ class _HeaderHomeState extends State<HeaderHome> {
           icon: const Icon(Icons.add_circle),
           tooltip: 'Add new Task',
           onPressed: () {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     content: const Text("This is adding button"),
-            //     duration: const Duration(seconds: 5),
-            //     dismissDirection: DismissDirection.up,
-            //     action: SnackBarAction(
-            //         textColor: Colors.tealAccent,
-            //         onPressed: () {
-            //           debugPrint("----------- Hello -------");
-            //         },
-            //         label: 'Undo'),
-            //   ),
-            // );
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const Addmoney()));
           },
@@ -57,6 +46,121 @@ class _HeaderHomeState extends State<HeaderHome> {
           tooltip: 'Search task',
           onPressed: () {
             debugPrint("___________ Searching _______");
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.info,
+            size: 28,
+          ),
+          tooltip: 'Search task',
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(40))),
+                      title: Container(
+                          width: double.infinity,
+                          color: Colors.black54,
+                          height: 50,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "About",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(" "),
+                              Text(" "),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, 'Cancel');
+                                  },
+                                  icon: Icon(
+                                    Icons.close,
+                                    size: 28,
+                                    color: Color.fromARGB(255, 249, 142, 140),
+                                  ))
+                            ],
+                          )),
+                      // icon: Icon(Icons.close_rounded),
+                      content: Container(
+                        width: 200,
+                        height: 255,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Money Suboo \n",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 19,
+                              ),
+                            ),
+                            Text(
+                              "Version 1.0.1 \n ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Text(
+                              "Money Suboo application for mannage your money in your daily life. \n",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Text(
+                              "Developed By Nay Oo lwin \n",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Container(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () async {
+                                          final url = Uri.parse(
+                                              'https://github.com/NayOoLwin8120');
+                                          if (await launchUrl(url)) {
+                                            await launchUrl(url);
+                                          }
+                                        },
+                                        icon: Icon(Icons.facebook)),
+                                    IconButton(
+                                        onPressed: () async {
+                                          final url = Uri.parse(
+                                              'https://github.com/NayOoLwin8120');
+                                          if (await launchUrl(url)) {
+                                            await launchUrl(url);
+                                          }
+                                        },
+                                        icon: Icon(Icons.facebook)),
+                                    IconButton(
+                                        onPressed: () async {
+                                          final url = Uri.parse(
+                                              'https://github.com/NayOoLwin8120');
+                                          if (await launchUrl(url)) {
+                                            await launchUrl(url);
+                                          }
+                                        },
+                                        icon: Icon(Icons.facebook))
+                                  ]),
+                            )
+                          ],
+                        ),
+                      ),
+                    ));
           },
         ),
       ],

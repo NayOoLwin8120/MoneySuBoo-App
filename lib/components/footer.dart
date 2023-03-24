@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mytest/pages/account.dart';
 import 'package:mytest/pages/addmoney.dart';
 
 class CustomFooter extends StatelessWidget {
@@ -46,8 +47,8 @@ class CustomFooter extends StatelessWidget {
         IconButton(
           enableFeedback: false,
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const Addmoney()));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => const Account()));
           },
           tooltip: "Account",
           icon: const Icon(
