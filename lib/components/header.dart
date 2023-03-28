@@ -33,14 +33,14 @@ class _HeaderHomeState extends State<HeaderHome> {
       ),
       leadingWidth: 56,
       actions: [
-        IconButton(
-          icon: const Icon(Icons.add_circle),
-          tooltip: 'Add new Task',
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const Addmoney()));
-          },
-        ),
+        // IconButton(
+        //   icon: const Icon(Icons.add_circle),
+        //   tooltip: 'Add new Task',
+        //   onPressed: () {
+        //     Navigator.of(context).push(
+        //         MaterialPageRoute(builder: (context) => const Addmoney()));
+        //   },
+        // ),
         IconButton(
           icon: const Icon(Icons.search_rounded),
           tooltip: 'Search task',
