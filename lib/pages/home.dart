@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mytest/Model/addmoney_datalist.dart';
+import 'package:mytest/Providers/Sayinlist.dart';
+import 'package:mytest/components/datalist.dart';
 import 'package:mytest/components/date.dart';
 import 'package:mytest/components/header.dart';
 import 'package:mytest/components/income_outcome.dart';
 import 'package:mytest/components/sidebar.dart';
 import 'package:mytest/pages/addmoney.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:mytest/components/footer.dart';
 import 'package:mytest/components/showbalance.dart';
@@ -22,17 +27,18 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<Data> _data = List.generate(10, (index) {
-    return Data(
-        time: "Time $index", name: "Sayin $index", value: "Money $index");
-  });
+  // List<Data> _data = List.generate(10, (index) {
+  //   return Data(
+  //       time: "Time $index", name: "Sayin $index", value: "Money $index");
+  // });
 
   //footer data
 
   @override
   Widget build(BuildContext context) {
+    final data = context.watch<MoneyDataList>().datalist.reversed;
     return Scaffold(
-      appBar: HeaderHome(),
+      appBar: const HeaderHome(),
       body: Column(children: [
         // _______ Start Date  Section ______________________
         ShowDate(),
@@ -45,22 +51,40 @@ class _HomepageState extends State<Homepage> {
         // const SizedBox(height: 20.0),
         //------------ Start Task list Section -------------------
         Container(
-          color: Color.fromARGB(255, 5, 227, 201),
-          height: 358,
-          padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            itemCount: _data.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                isThreeLine: true,
-                leading: Icon(Icons.attach_money_rounded),
-                title: Text(_data[index].time!),
-                subtitle: Text(_data[index].name!),
-                trailing: Text(_data[index].value!),
-              );
-            },
-          ),
-        ),
+            color: Color.fromARGB(255, 5, 227, 201),
+            height: 358,
+            padding: const EdgeInsets.all(10),
+            // child: ListView.builder(
+            //   itemCount: _data.length,
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return ListTile(
+            //       isThreeLine: true,
+            //       leading: Icon(Icons.attach_money_rounded),
+            //       title: Text(_data[index].time!),
+            //       subtitle: Text(_data[index].name!),
+            //       trailing: Text(_data[index].value!),
+            //     );
+            //   },
+            // ),
+
+            child: SingleChildScrollView(
+                controller: ScrollController(),
+                physics: const ScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    ...data
+                        .map((e) => DataList(
+                            category_name: e.category_name,
+                            cat_item: e.cat_item,
+                            money: e.money,
+                            id: e.id,
+                            isFinish: e.isFinish,
+                            dateTime: e.dateTime,
+                            itemicon: e.itemicon))
+                        .toList()
+                  ],
+                ))),
       ]),
 
       // // ______ Start for footer ___________
