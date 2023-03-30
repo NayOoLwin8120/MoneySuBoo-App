@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
+import 'package:mytest/pages/addincome.dart';
 import 'package:mytest/pages/addmoney.dart';
 
 class Income_Outcome extends StatelessWidget {
@@ -63,7 +64,7 @@ class Income_Outcome extends StatelessWidget {
                     // style: const(),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Addmoney()));
+                          builder: (context) => Add_Data_Screen()));
                     },
                     label: const Text(
                       'Outcome',

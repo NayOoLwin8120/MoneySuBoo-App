@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
-import 'package:mytest/Providers/Sayinlist.dart';
+import 'package:mytest/Providers/alllist.dart';
+import 'package:mytest/pages/viewdetail.dart';
+
 import 'package:provider/provider.dart';
 
 class DataList extends StatelessWidget {
   final String category_name;
   final String cat_item;
-  final int money;
+  final String money;
   final DateTime dateTime;
-  final Icon itemicon;
+  final Color itemcolor;
   final bool isFinish;
   final int id;
   const DataList(
       {required String this.category_name,
       required String this.cat_item,
-      required int this.money,
+      required String this.money,
       required this.id,
       required this.isFinish,
       required DateTime this.dateTime,
-      required this.itemicon});
+      required this.itemcolor});
   @override
   Widget build(BuildContext context) {
     final setDetailData = () {
-      context.read<MoneyDataList>().setDetailId(id: id);
+      context.read<MoneyDataLists>().setDetailId(id: id);
     };
     return Dismissible(
         onDismissed: (direction) {
           if (direction == DismissDirection.startToEnd) {
-            context.read<MoneyDataList>().updateIsFinish(id: id);
+            context.read<MoneyDataLists>().updateIsFinish(id: id);
           } else {
-            context.read<MoneyDataList>().deletedata(id: id);
+            context.read<MoneyDataLists>().deletedata(id: id);
           }
           debugPrint('.............$direction $id.....................');
         },
@@ -83,13 +85,8 @@ class DataList extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             setDetailData();
-            showBottomSheet(
-                context: context,
-                enableDrag: true,
-                builder: (context) => SizedBox(
-                      height: 500,
-                      // child: ToDo_Details(),
-                    ));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Money_Details()));
           },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 12),
@@ -126,13 +123,6 @@ class DataList extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Container(
-                            //   margin: EdgeInsets.only(left: 8),
-                            //   width: 20,
-                            //   height: 20,
-                            //   decoration: BoxDecoration(
-                            //       borderRadius: BorderRadius.circular(25)),
-                            // ),
                             Text(
                               category_name,
                               style: const TextStyle(
@@ -146,13 +136,21 @@ class DataList extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w300),
                             ),
-                            Text(
-                              money.toString(),
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w300),
-                            ),
                           ],
                         ),
+                        Container(
+                          child: TextButton.icon(
+                            onPressed: null,
+                            icon: Icon(Icons.add),
+                            label: Text(
+                              money,
+                              style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),

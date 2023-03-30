@@ -4,9 +4,9 @@ class DataCategory with ChangeNotifier {
   final int id;
   final String category_name;
   final String cat_item;
-  final int money;
+  final String money;
   final DateTime dateTime;
-  final Icon itemicon;
+  final Color itemcolor;
   bool isFinish;
   DataCategory(
       {required this.id,
@@ -15,7 +15,7 @@ class DataCategory with ChangeNotifier {
       required this.money,
       required this.dateTime,
       required this.isFinish,
-      required this.itemicon});
+      required this.itemcolor});
   set setIsFinish(bool data) {
     isFinish = data;
   }

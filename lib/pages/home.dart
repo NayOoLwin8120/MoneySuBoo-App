@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mytest/Model/addmoney_datalist.dart';
-import 'package:mytest/Providers/Sayinlist.dart';
+import 'package:mytest/Providers/alllist.dart';
+
 import 'package:mytest/components/datalist.dart';
 import 'package:mytest/components/date.dart';
 import 'package:mytest/components/header.dart';
@@ -36,7 +37,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    final data = context.watch<MoneyDataList>().datalist.reversed;
+    final data = context.watch<MoneyDataLists>().datalist.reversed;
     return Scaffold(
       appBar: const HeaderHome(),
       body: Column(children: [
@@ -81,7 +82,7 @@ class _HomepageState extends State<Homepage> {
                             id: e.id,
                             isFinish: e.isFinish,
                             dateTime: e.dateTime,
-                            itemicon: e.itemicon))
+                            itemcolor: e.itemcolor))
                         .toList()
                   ],
                 ))),

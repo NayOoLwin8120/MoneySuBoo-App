@@ -7,18 +7,18 @@ class MoneyDataLists with ChangeNotifier {
         id: 1,
         category_name: "income",
         cat_item: "salary",
-        money: 1200,
+        money: "1200",
         dateTime: DateTime.now(),
         isFinish: false,
-        itemicon: const Icon(Icons.monetization_on)),
+        itemcolor: Colors.green),
     DataCategory(
       id: 2,
       category_name: "outcome",
       cat_item: "Topup",
-      money: 1000,
+      money: "1000",
       dateTime: DateTime.now(),
       isFinish: false,
-      itemicon: const Icon(Icons.phone),
+      itemcolor: Colors.green,
     ),
   ];
   int? detailid;
@@ -33,6 +33,10 @@ class MoneyDataLists with ChangeNotifier {
   void setDetailId({required int id}) {
     detailid = id;
     notifyListeners();
+  }
+
+  List filterData() {
+    return datalist.where((element) => element.id == detailid).toList();
   }
 
   //Update Data
