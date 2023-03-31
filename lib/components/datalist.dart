@@ -27,62 +27,71 @@ class DataList extends StatelessWidget {
     final setDetailData = () {
       context.read<MoneyDataLists>().setDetailId(id: id);
     };
-    return Dismissible(
-        onDismissed: (direction) {
-          if (direction == DismissDirection.startToEnd) {
-            context.read<MoneyDataLists>().updateIsFinish(id: id);
-          } else {
-            context.read<MoneyDataLists>().deletedata(id: id);
-          }
-          debugPrint('.............$direction $id.....................');
-        },
-        background: Container(
-          color: isFinish ? Colors.green : Colors.indigoAccent,
-          child: Row(
-            children: [
-              SizedBox(
-                width: 50,
-                child: isFinish
-                    ? Icon(
-                        Icons.remove_circle_outline_outlined,
-                        size: 30,
-                        color: Colors.white,
-                      )
-                    : Icon(
-                        Icons.task_alt_outlined,
-                        size: 30,
-                        color: Colors.white,
-                      ),
+    return Column(
+      children: [
+        Container(
+          color: const Color.fromARGB(255, 219, 235, 233),
+          margin: const EdgeInsets.only(bottom: 2),
+          padding: const EdgeInsets.all(10),
+          constraints: const BoxConstraints(maxHeight: 70),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Container(
+              // width: 150,
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Text("Income",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 21,
+                      )),
+                  Text(money,
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
               ),
-              Text(
-                "${isFinish ? 'UnDone' : 'Done'}",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            // ignore: sized_box_for_whitespace
+            Container(
+              // width: 150,
+              // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+
+              child: Column(
+                children: [
+                  Text("Outcome",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                      )),
+                  Text(money,
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
               ),
-            ],
-          ),
+            ),
+            Container(
+              // width: 150,
+              // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+
+              child: Column(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(money,
+                      style: TextStyle(color: Colors.black, fontSize: 18)),
+                ],
+              ),
+            ),
+          ]),
         ),
-        secondaryBackground: Container(
-          color: Colors.red,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(
-                width: 50,
-                child: Icon(
-                  Icons.delete_outline_outlined,
-                  size: 30,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'Delete',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ],
-          ),
-        ),
-        key: GlobalKey(),
-        child: GestureDetector(
+        GestureDetector(
           onTap: () {
             setDetailData();
             Navigator.of(context)
@@ -158,6 +167,8 @@ class DataList extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        ),
+      ],
+    );
   }
 }

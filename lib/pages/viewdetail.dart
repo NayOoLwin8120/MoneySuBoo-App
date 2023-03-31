@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytest/Providers/alllist.dart';
 import 'package:mytest/pages/addincome.dart';
+import 'package:mytest/pages/home.dart';
 import 'package:provider/provider.dart';
 
 class Money_Details extends StatefulWidget {
@@ -13,7 +14,7 @@ class _Money_DetailsState extends State<Money_Details> {
   @override
   Widget build(BuildContext context) {
     final data = context.watch<MoneyDataLists>().filterData()[0];
-    print(data.id);
+    // print(data.id);
     return Scaffold(
         appBar:
             AppBar(title: Text("${data.cat_item}"), leadingWidth: 56, actions: [
@@ -54,8 +55,16 @@ class _Money_DetailsState extends State<Money_Details> {
                       ),
                       TextButton(
                         onPressed: () => {
-                          // context.read<MoneyDataLists>().deletedata(id: id),
-                          Navigator.of(context).pop(),
+                          context
+                              .read<MoneyDataLists>()
+                              .deletedata(id: data.id),
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Homepage()),
+                          ),
+                          // debugPrint(data.id.toString()),
+                          debugPrint("Delete Done"),
                         },
                         child: const Text('OK',
                             style: TextStyle(color: Colors.red, fontSize: 20)),

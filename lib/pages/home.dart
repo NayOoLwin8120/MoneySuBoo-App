@@ -44,7 +44,7 @@ class _HomepageState extends State<Homepage> {
         // _______ Start Date  Section ______________________
         ShowDate(),
         // Start balance section
-        ShowBalance(),
+        // ShowBalance(),
         // End balance section
         //--------------- Start Income and Outcome Section ------
         Income_Outcome(),
