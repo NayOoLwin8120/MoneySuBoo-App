@@ -67,7 +67,6 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
         dateTime: datePick,
         isFinish: widget.isFinish ?? false,
         itemcolor: colorPick,
-        transactions: moneycontroller.text,
       );
       if (widget.id == null) {
         context.read<MoneyDataLists>().AddData(item: formData);

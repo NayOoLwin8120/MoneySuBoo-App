@@ -29,68 +29,6 @@ class DataList extends StatelessWidget {
     };
     return Column(
       children: [
-        Container(
-          color: const Color.fromARGB(255, 219, 235, 233),
-          margin: const EdgeInsets.only(bottom: 2),
-          padding: const EdgeInsets.all(10),
-          constraints: const BoxConstraints(maxHeight: 70),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Container(
-              // width: 150,
-              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-              // color: Colors.red,
-              child: Column(
-                children: [
-                  Text("Income",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 21,
-                      )),
-                  Text(money,
-                      style: TextStyle(color: Colors.black, fontSize: 18)),
-                ],
-              ),
-            ),
-            // ignore: sized_box_for_whitespace
-            Container(
-              // width: 150,
-              // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-
-              child: Column(
-                children: [
-                  Text("Outcome",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-                      )),
-                  Text(money,
-                      style: TextStyle(color: Colors.black, fontSize: 18)),
-                ],
-              ),
-            ),
-            Container(
-              // width: 150,
-              // margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              margin: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-
-              child: Column(
-                children: [
-                  Text(
-                    "Total",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(money,
-                      style: TextStyle(color: Colors.black, fontSize: 18)),
-                ],
-              ),
-            ),
-          ]),
-        ),
         GestureDetector(
           onTap: () {
             setDetailData();
