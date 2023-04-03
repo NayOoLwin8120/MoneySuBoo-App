@@ -22,6 +22,7 @@ class _ShowBalanceState extends State<ShowBalance> {
     var totalincome = 0;
     var totaloutcome = 0;
     var totalmoney = 0;
+    var totalcolor;
     for (var income in data) {
       // print(income.money);
       if (income.category_name == "income") {
@@ -33,6 +34,8 @@ class _ShowBalanceState extends State<ShowBalance> {
         // print(totaloutcome);
       }
       totalmoney = totalincome - totaloutcome;
+      totalcolor = totaloutcome > totalincome ? Colors.red : Colors.green;
+
       // print(totalmoney);
     }
     return Container(
@@ -90,7 +93,7 @@ class _ShowBalanceState extends State<ShowBalance> {
                 ),
               ),
               Text(totalmoney.toString(),
-                  style: TextStyle(color: Colors.black, fontSize: 18)),
+                  style: TextStyle(color: totalcolor, fontSize: 18)),
             ],
           ),
         ),

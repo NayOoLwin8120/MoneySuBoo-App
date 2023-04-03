@@ -24,7 +24,8 @@ class Income_Outcome extends StatelessWidget {
             // color: Colors.red,
             // margin:EdgeInsets.fromLTRB(10, 10, 10, 10),
             decoration: BoxDecoration(
-              color: Colors.amber[400],
+              // color: Color.fromARGB(146, 89, 242, 7),
+              color: Colors.green,
               borderRadius: const BorderRadius.all(Radius.circular(12)),
             ),
 
@@ -54,7 +55,7 @@ class Income_Outcome extends StatelessWidget {
                 const EdgeInsets.only(top: 1, right: 2, bottom: 5, left: 10),
             // color: Colors.red,
             decoration: BoxDecoration(
-              color: Colors.amber[400],
+              color: Color.fromARGB(166, 255, 0, 0),
               borderRadius: const BorderRadius.all(Radius.circular(12)),
             ),
             child: Row(

@@ -10,20 +10,21 @@ import 'package:provider/provider.dart';
 
 class Add_Data_Screen extends StatefulWidget {
   final String? category_name;
+  final String? description;
   final int? id;
   final String? money;
   final String? cate_item;
   final DateTime? dateTime;
-  final Color? itemcolor;
   final bool? isFinish;
-  Add_Data_Screen(
-      {String? this.category_name,
-      bool? this.isFinish,
-      String? this.money,
-      int? this.id,
-      String? this.cate_item,
-      DateTime? this.dateTime,
-      Color? this.itemcolor});
+  Add_Data_Screen({
+    String? this.category_name,
+    String? this.description,
+    bool? this.isFinish,
+    String? this.money,
+    int? this.id,
+    String? this.cate_item,
+    DateTime? this.dateTime,
+  });
   @override
   State<Add_Data_Screen> createState() => _Add_Data_ScreenState();
 }
@@ -32,10 +33,13 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
   final List data = [
     Colors.red,
   ];
+  List<String> moneyselect = ['income', 'outcome'];
+  String selected = "income";
+
   final _formKey = GlobalKey<FormState>();
   DateTime datePick = DateTime.now();
   Color colorPick = Colors.green;
-  final categoryController = TextEditingController();
+  final descriptioncontroller = TextEditingController();
   final moneycontroller = TextEditingController();
   final catitemController = TextEditingController();
   void _showDatePicker() {
@@ -61,12 +65,12 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
     if (_formKey.currentState!.validate()) {
       final formData = DataCategory(
         id: widget.id ?? new Random().nextInt(100000),
-        category_name: categoryController.text,
+        category_name: selected,
         cat_item: catitemController.text,
         money: moneycontroller.text,
         dateTime: datePick,
         isFinish: widget.isFinish ?? false,
-        itemcolor: colorPick,
+        description: descriptioncontroller.text,
       );
       if (widget.id == null) {
         context.read<MoneyDataLists>().AddData(item: formData);
@@ -83,10 +87,10 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
   @override
   void initState() {
     super.initState();
-    categoryController.text = widget.category_name ?? "";
+    selected = widget.category_name ?? "";
     moneycontroller.text = widget.money ?? "";
     datePick = widget.dateTime ?? DateTime.now();
-    colorPick = widget.itemcolor ?? Colors.green;
+    descriptioncontroller.text = widget.description ?? " no description ";
     catitemController.text = widget.cate_item ?? "";
   }
 
@@ -119,25 +123,35 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      border: Border(
-                          top: BorderSide(width: 1.0, color: Colors.grey))),
-                  child: TextFormField(
-                    controller: categoryController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Need To Fill The Task Name !";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: const InputDecoration(
-                        hintText: "Income or Outcome",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
-                  ),
+                Text("အမျိုးအစားေရွးပါ", style: TextStyle(fontSize: 16)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Radio<String>(
+                        value: moneyselect[0],
+                        groupValue: selected,
+                        onChanged: (val) {
+                          setState(() {
+                            selected = val!;
+                          });
+                        }),
+                    Text(
+                      moneyselect[0],
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Radio<String>(
+                        value: moneyselect[1],
+                        groupValue: selected,
+                        onChanged: (val) {
+                          setState(() {
+                            selected = val!;
+                          });
+                        }),
+                    Text(moneyselect[1], style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
                   decoration: const BoxDecoration(
@@ -152,11 +166,25 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
                         return null;
                       }
                     },
-                    decoration: const InputDecoration(
-                        hintText: "Categoryname",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.category_outlined,
+                        size: 30,
+                        color: Colors.red,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      labelText: "Category name",
+                      hintText: "Enter your category",
+                      // hintText: "Categoryname",
+                      // labelText: "Categoryname",
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    ),
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
                   decoration: const BoxDecoration(
@@ -167,16 +195,34 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Need To Fill The Category !";
+                      }
+                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                        return 'Please enter numbers only';
+                      }
+                      if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+                        return 'Special characters are not allowed';
                       } else {
                         return null;
                       }
                     },
-                    decoration: const InputDecoration(
-                      hintText: "Add Money",
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.attach_money_sharp,
+                        size: 30,
+                        color: Colors.red,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      labelText: "Money",
+                      hintText: "Enter your Money",
+                      // hintText: "Add Money",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
                     decoration: const BoxDecoration(
@@ -208,45 +254,33 @@ class _Add_Data_ScreenState extends State<Add_Data_Screen> {
                         ),
                       ),
                     )),
-                Container(
-                  child: Text(
-                    'Priority',
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 17),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          ...data
-                              .map((e) => GestureDetector(
-                                    onTap: () {
-                                      _setColor(e);
-                                    },
-                                    child: Color_Card(data: e),
-                                  ))
-                              .toList(),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Color_Card(data: colorPick),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("Select Color"),
-                        ],
-                      )
-                    ],
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                          top: BorderSide(width: 1.0, color: Colors.grey))),
+                  child: TextFormField(
+                    minLines: 1,
+                    maxLines: 6,
+                    controller: descriptioncontroller,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Need To Fill Descritption";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: const InputDecoration(
+                        hintText: "Description",
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
                   ),
                 ),
                 SizedBox(
-                  height: 120,
+                  height: 50,
                 ),
                 ElevatedButton(
                     onPressed: () {

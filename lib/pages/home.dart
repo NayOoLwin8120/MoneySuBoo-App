@@ -82,7 +82,7 @@ class _HomepageState extends State<Homepage> {
                             id: e.id,
                             isFinish: e.isFinish,
                             dateTime: e.dateTime,
-                            itemcolor: e.itemcolor))
+                            description: e.description))
                         .toList()
                   ],
                 ))),

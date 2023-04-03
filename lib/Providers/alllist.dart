@@ -10,16 +10,15 @@ class MoneyDataLists with ChangeNotifier {
         money: "1200",
         dateTime: DateTime.now(),
         isFinish: false,
-        itemcolor: Colors.green),
+        description: "My Salary"),
     DataCategory(
-      id: 2,
-      category_name: "outcome",
-      cat_item: "Topup",
-      money: "1000",
-      dateTime: DateTime.now(),
-      isFinish: false,
-      itemcolor: Colors.green,
-    ),
+        id: 2,
+        category_name: "outcome",
+        cat_item: "Topup",
+        money: "1000",
+        dateTime: DateTime.now(),
+        isFinish: false,
+        description: "Topup balance"),
   ];
   int? detailid;
 
