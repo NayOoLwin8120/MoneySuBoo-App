@@ -18,7 +18,23 @@ class _ShowBalanceState extends State<ShowBalance> {
   @override
   Widget build(BuildContext context) {
     var data = context.watch<MoneyDataLists>().datalist;
-    print(data[0].money);
+    // print(data[0].money);
+    var totalincome = 0;
+    var totaloutcome = 0;
+    var totalmoney = 0;
+    for (var income in data) {
+      // print(income.money);
+      if (income.category_name == "income") {
+        totalincome += int.parse(income.money);
+        // print(totalincome);
+      }
+      if (income.category_name == "outcome") {
+        totaloutcome += int.parse(income.money);
+        // print(totaloutcome);
+      }
+      totalmoney = totalincome - totaloutcome;
+      // print(totalmoney);
+    }
     return Container(
       color: const Color.fromARGB(255, 219, 235, 233),
       margin: const EdgeInsets.only(bottom: 2),
@@ -36,7 +52,7 @@ class _ShowBalanceState extends State<ShowBalance> {
                     color: Colors.green,
                     fontSize: 21,
                   )),
-              Text("10000",
+              Text(totalincome.toString(),
                   style: TextStyle(color: Colors.black, fontSize: 18)),
             ],
           ),
@@ -54,7 +70,7 @@ class _ShowBalanceState extends State<ShowBalance> {
                     color: Colors.red,
                     fontSize: 20,
                   )),
-              Text("10000",
+              Text(totaloutcome.toString(),
                   style: TextStyle(color: Colors.black, fontSize: 18)),
             ],
           ),
@@ -73,7 +89,7 @@ class _ShowBalanceState extends State<ShowBalance> {
                   fontSize: 20,
                 ),
               ),
-              Text("10000",
+              Text(totalmoney.toString(),
                   style: TextStyle(color: Colors.black, fontSize: 18)),
             ],
           ),
